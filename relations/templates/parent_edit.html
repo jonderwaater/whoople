@@ -1,0 +1,14 @@
+Add existing person
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Send">
+</form>
+<br>
+or create new
+<br>
+<form method="post">{% csrf_token %}
+    {{ form_newperson.as_p }}
+    <input type="submit" value="Send">
+</form>
+
+

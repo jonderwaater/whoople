@@ -1,0 +1,18 @@
+{% load socialaccount %}
+
+<h1>Whoople organizer</h1>
+{% if user.is_authenticated %}
+<p>Welcome {{ user.username }} ( <a href="{% url 'account_logout' %}">log out</a>)!</p>
+
+<a href="{% url 'relations:addperson' %}"> Add person</a><br>
+<br>
+
+
+{% for person in persons %}
+<a href="{% url 'person' person_id=person.pk %}">{{ person.first_name }} {{ person.last_name }}</a> <font size=1><a href="{% url 'deleteperson' person_id=person.pk %}">remove</a></font><br>
+{% endfor %}
+
+
+{% else %}
+<a href="{% url 'account_login' %}">Log in</a>
+{% endif %}

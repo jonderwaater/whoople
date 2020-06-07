@@ -1,0 +1,48 @@
+<a href="{% url 'home' %}">home</a><br>
+<h2>{{ person.first_name}} {{ person.last_name }} {% if person.gender %}({{ person.gender }}) {% endif %}<font size=1><a href="{% url 'personupdate' person_id=person.pk %}">edit</a></font></h2>
+{% if person.birth_date %}
+Birth date: {{ person.birth_date }} <br>
+{% endif %}
+{% if person.deceased_date %}
+Deceased: {{ person.deceased_date }} <br>
+{% endif %}
+{% if person.streethouse or person.city or person.country %}
+Address:<br>
+{% if person.streethouse %}
+{{ person.streethouse }} <br>
+{% endif %}
+{% if person.zipcode %}
+{{ person.zipcode }} <br>
+{% endif %}
+{% if person.city %}
+{{ person.city }} <br>
+{% endif %}
+{% if person.country %}
+{{ person.country }} <br>
+{% endif %}
+{% endif %}
+
+<h3>Partner</h3>
+{% for partner in partners %}
+<a href="{% url 'person' person_id=partner.pk %}">{{ partner.first_name }} {{ partner.last_name }}</a> <font size=1><a href="{% url 'relations:deletepartner' person_id=person.pk partner_id=partner.pk %}">remove</a></font><br>
+{% endfor %}
+
+<h3>Parents</h3>
+{% for parent in parents %}
+<a href="{% url 'person' person_id=parent.pk %}">{{ parent.first_name }} {{ parent.last_name }}</a> <font size=1><a href="{% url 'relations:deleteparent' person_id=person.pk parent_id=parent.pk %}">remove</a></font><br>
+{% endfor %}
+
+<h3>Children</h3>
+{% for child in children %}
+<a href="{% url 'person' person_id=child.pk %}">{{ child.first_name }} {{ child.last_name }}</a> <font size=1><a href="{% url 'relations:deletechild' person_id=person.pk child_id=child.pk %}">remove</a></font><br>
+{% endfor %}
+
+<h3>Siblings</h3>
+{% for sibling in siblings %}
+<a href="{% url 'person' person_id=sibling.pk %}">{{ sibling.first_name }} {{ sibling.last_name }}</a><br>
+{% endfor %}
+
+<br>
+<a href="{% url 'relations:addpartner' person_id=person.pk %}"> Add partner relationship</a><br>
+<a href="{% url 'relations:addparent' person_id=person.pk %}"> Add parent relationship</a><br>
+<a href="{% url 'relations:addchild' person_id=person.pk %}"> Add child relationship</a><br>
